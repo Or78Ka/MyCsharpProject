@@ -98,27 +98,48 @@ namespace TinyShelterPage.Controllers
         }
 
 
-
-
-
-        public ActionResult Edit(int? id)
+        public ActionResult AnimalEdit(int id)
         {
-            if (id == null)
+            var animal = Pet.SingleOrDefault(p => p.AnimalId == id);
+            if (animal != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var entryModel = new EntryModel
+                {
+                    AnimalId = animal.AnimalId,
+                    Name = animal.Name,
+                    Type = animal.Type,
+                    Age = animal.Age,
+                    Description = animal.Description,
+                    Date = animal.Date
+                };
 
+                return View("AddEditAnimal", entryModel);
             }
-            return View();
+
+            return new HttpNotFoundResult();
         }
 
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            }
-            return View();
-        }
+
+
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+        //    }
+        //    return View();
+        //}
+
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+        //    }
+        //    return View();
+        //}
     }
 }
