@@ -9,6 +9,6 @@ namespace TinyShelterPage
 {
     public class Context : DbContext
     {
-        public DbSet<Entry> Entries { get; set; }
+        public DbSet<EntryModel> Entries { get; set; }
     }
 }

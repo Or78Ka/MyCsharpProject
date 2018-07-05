@@ -12,7 +12,7 @@ namespace TinyShelterPage
         {
             using (var context = new Context())
             {
-                context.Entries.Add(new Entry()
+                context.Entries.Add(new EntryModel()
                 {
                     Name = "Fluffy",
                     //Type = (private enum)"Cat",
