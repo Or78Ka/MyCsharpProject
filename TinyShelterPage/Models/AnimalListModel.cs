@@ -7,7 +7,7 @@ namespace TinyShelterPage.Models
 {
     public class AnimalListModel
     {
-        public List<EntryModel> Animal { get; set; }
-        public int TotalAnimal { get; set; }
+        public List<EntryModel> Pet { get; set; }
+        public int TotalPet { get; set; }
     }
 }

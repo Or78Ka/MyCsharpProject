@@ -10,27 +10,64 @@ namespace TinyShelterPage.Controllers
 {
     public class AnimalsController : Controller
     {
+
+            public static List<Animal> Pet = new List<Animal>
+                {
+                    new Animal {AnimalId= 1, Name = "Puss", Type = "Cat", Age = 5, Description = "sweet kitty", Date = new DateTime(2018, 6, 10)},
+                    new Animal {AnimalId= 2, Name = "Oscar", Type = "Cat", Age = 7, Description = "adorable", Date = new DateTime(2018, 5, 18)},
+                    new Animal {AnimalId= 3, Name = "Tiger", Type = "Cat", Age = 3, Description = "hairball", Date = new DateTime(2018, 6, 14)},
+                    new Animal {AnimalId= 4, Name = "Lucy", Type = "Dog", Age = 5, Description = "lovely", Date = new DateTime(2018, 4, 25)},
+                    new Animal {AnimalId= 5, Name = "Max", Type = "Dog", Age = 8, Description = "cutie", Date = new DateTime(2018, 6, 25)},
+                    new Animal {AnimalId= 6, Name = "Buddy", Type = "Dog", Age = 1, Description = "babyface", Date = new DateTime(2018, 5, 12)}
+
+                };
+
+
         // GET: Animals
         public ActionResult Index()
         {
             var animalList = new AnimalListModel
             {
-                Animal = new List<EntryModel>
+                Pet = Pet.Select(p => new EntryModel
                 {
-                    new EntryModel {Id= 1, Name = "Puss", Type = "Cat", Age = 5, Description = "sweet kitty", Date = new DateTime(2018, 6, 10)},
-                    new EntryModel {Id= 2, Name = "Oscar", Type = "Cat", Age = 7, Description = "adorable", Date = new DateTime(2018, 5, 18)},
-                    new EntryModel {Id= 3, Name = "Tiger", Type = "Cat", Age = 3, Description = "hairball", Date = new DateTime(2018, 6, 14)},
-                    new EntryModel {Id= 4, Name = "Lucy", Type = "Dog", Age = 5, Description = "lovely", Date = new DateTime(2018, 4, 25)},
-                    new EntryModel {Id= 5, Name = "Max", Type = "Dog", Age = 8, Description = "cutie", Date = new DateTime(2018, 6, 25)},
-                    new EntryModel {Id= 6, Name = "Buddy", Type = "Dog", Age = 1, Description = "babyface", Date = new DateTime(2018, 5, 12)}
-
-                }
+                    AnimalId = p.AnimalId,
+                    Name = p.Name,
+                    Type = p.Type,
+                    Age = p.Age,
+                    Description = p.Description,
+                    Date = p.Date
+                }).ToList()
 
             };
-            animalList.TotalAnimal = animalList.Animal.Count;
+
+            animalList.TotalPet = animalList.Pet.Count;
 
             return View(animalList);
         }
+
+        public ActionResult AnimalDetail(int id)
+        {
+            var animal = Pet.SingleOrDefault(p => p.AnimalId == id);
+            if (animal != null)
+            {
+                var entryModel = new EntryModel
+                {
+                    AnimalId = animal.AnimalId,
+                    Name = animal.Name,
+                    Type = animal.Type,
+                    Age = animal.Age,
+                    Description = animal.Description,
+                    Date = animal.Date
+
+                };
+
+                return View(entryModel);
+            }
+
+            return new HttpNotFoundResult();
+        }
+
+
 
         public ActionResult Add()
         {

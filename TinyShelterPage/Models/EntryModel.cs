@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -40,7 +41,7 @@ namespace TinyShelterPage.Models
 
         //}
 
-        public int? Id { get; set; }
+        public int? AnimalId { get; set; }
 
         public string Name { get; set; }
 
@@ -50,6 +51,7 @@ namespace TinyShelterPage.Models
 
         public string Description { get; set; }
 
+        [DisplayName("Intake date")]
         public DateTime Date { get; set; }
     }
 }

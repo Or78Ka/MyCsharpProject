@@ -116,6 +116,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Animal.cs" />
     <Compile Include="Models\AnimalListModel.cs" />
     <Compile Include="Models\EntryModel.cs" />
     <Compile Include="Program.cs" />
@@ -132,6 +133,7 @@
     <Content Include="Views\Animals\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Animals\AnimalDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
