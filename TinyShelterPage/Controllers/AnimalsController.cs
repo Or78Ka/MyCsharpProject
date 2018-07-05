@@ -69,10 +69,14 @@ namespace TinyShelterPage.Controllers
 
 
 
-        public ActionResult Add()
+        public ActionResult AnimalAdd()
         {
-            return View();
+            var entryModel = new EntryModel();
+
+            return View("AddEditAnimal", entryModel);
         }
+
+
 
         public ActionResult Edit(int? id)
         {

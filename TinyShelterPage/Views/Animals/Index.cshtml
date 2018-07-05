@@ -21,16 +21,22 @@
         @for (var i = 0; i < Model.Pet.Count; i++)
         {
 
-        <tr>
-            <td>@Model.Pet[i].Name</td>
-            <td>@Model.Pet[i].Type</td>
-            <td>@Model.Pet[i].Age</td>
-            <td>@Html.ActionLink("Detail", "AnimalDetail", new { id = Model.Pet[i].AnimalId })</td>
-        </tr>
-       
+            <tr>
+                <td>@Model.Pet[i].Name</td>
+                <td>@Model.Pet[i].Type</td>
+                <td>@Model.Pet[i].Age</td>
+                <td>@Html.ActionLink("Detail", "AnimalDetail", new { id = Model.Pet[i].AnimalId })</td>
+            </tr>
+
         }
     </tbody>
 </table>
 
-		Total Pets: @Model.TotalPet
+		 
+        <div class="col-sm-12 form-group">
+            <label>Total Pets:</label> @Model.TotalPet
+        </div>
+        <div class="col-sm-12">
+            @Html.ActionLink("Add Animal", "AnimalAdd", null, new { @class = "btn btn-primary" })
+        </div>
 
