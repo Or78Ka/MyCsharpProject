@@ -27,7 +27,7 @@ namespace TinyShelterPage.Controllers
                 }
 
             };
-                return View();
+                return View(animalList);
         }
 
         public ActionResult Add()
