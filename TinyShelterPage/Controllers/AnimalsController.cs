@@ -77,6 +77,29 @@ namespace TinyShelterPage.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult AddAnimal(EntryModel entryModel)
+        {
+            var nextAnimalId = Pet.Max(p => p.AnimalId) + 1;
+
+            var animal = new Animal
+            {
+                AnimalId = nextAnimalId,
+                Name = entryModel.Name,
+                Type = entryModel.Type,
+                Age = entryModel.Age,
+                Description = entryModel.Description,
+                Date = entryModel.Date
+            };
+
+            Pet.Add(animal);
+
+            return RedirectToAction("Index");
+        }
+
+
+
+
 
         public ActionResult Edit(int? id)
         {
