@@ -7,8 +7,10 @@ using TinyShelterPage.Models;
 
 namespace TinyShelterPage
 {
-    public class AnimalsToAdoptContext : DbContext
+    public class TinyShelterPageContext : DbContext
     {
-        public DbSet<EntryModel> Entries { get; set; }
+        public TinyShelterPageContext() : base("name=TinyShelterPage") { }
+
+        public virtual DbSet<Animal> Pet { get; set; }
     }
 }

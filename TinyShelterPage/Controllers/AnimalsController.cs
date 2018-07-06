@@ -11,57 +11,52 @@ namespace TinyShelterPage.Controllers
     public class AnimalsController : Controller
     {
 
-            public static List<Animal> Pet = new List<Animal>
-                {
-                    new Animal {AnimalId= 1, Name = "Puss", Type = "Cat", Age = 5, Description = "sweet kitty", Date = new DateTime(2018, 6, 10)},
-                    new Animal {AnimalId= 2, Name = "Oscar", Type = "Cat", Age = 7, Description = "adorable", Date = new DateTime(2018, 5, 18)},
-                    new Animal {AnimalId= 3, Name = "Tiger", Type = "Cat", Age = 3, Description = "hairball", Date = new DateTime(2018, 6, 14)},
-                    new Animal {AnimalId= 4, Name = "Lucy", Type = "Dog", Age = 5, Description = "lovely", Date = new DateTime(2018, 4, 25)},
-                    new Animal {AnimalId= 5, Name = "Max", Type = "Dog", Age = 8, Description = "cutie", Date = new DateTime(2018, 6, 25)},
-                    new Animal {AnimalId= 6, Name = "Buddy", Type = "Dog", Age = 1, Description = "babyface", Date = new DateTime(2018, 5, 12)}
-
-                };
-
 
         // GET: Animals
         public ActionResult Index()
         {
-            var animalList = new AnimalListModel
+            using (var tinyShelterPageContext = new TinyShelterPageContext())
             {
-                Pet = Pet.Select(p => new EntryModel
+               var animalList = new AnimalListModel
                 {
-                    AnimalId = p.AnimalId,
-                    Name = p.Name,
-                    Type = p.Type,
-                    Age = p.Age,
-                    Description = p.Description,
-                    Date = p.Date
-                }).ToList()
+                    Pet = tinyShelterPageContext.Pet.Select(p => new EntryModel
+                    {
+                        AnimalId = p.AnimalId,
+                        Name = p.Name,
+                        Type = p.Type,
+                        Age = p.Age,
+                        Description = p.Description,
+                        Date = p.Date
+                    }).ToList()
 
-            };
+                };
 
-            animalList.TotalPet = animalList.Pet.Count;
+                animalList.TotalPet = animalList.Pet.Count;
 
-            return View(animalList);
+                return View(animalList);
+            }
         }
 
         public ActionResult AnimalDetail(int id)
         {
-            var animal = Pet.SingleOrDefault(p => p.AnimalId == id);
-            if (animal != null)
-            {
-                var entryModel = new EntryModel
+            using (var tinyShelterPageContext = new TinyShelterPageContext())
+            { 
+                var animal = tinyShelterPageContext.Pet.SingleOrDefault(p => p.AnimalId == id);
+                if (animal != null)
                 {
-                    AnimalId = animal.AnimalId,
-                    Name = animal.Name,
-                    Type = animal.Type,
-                    Age = animal.Age,
-                    Description = animal.Description,
-                    Date = animal.Date
+                    var entryModel = new EntryModel
+                    {
+                        AnimalId = animal.AnimalId,
+                        Name = animal.Name,
+                        Type = animal.Type,
+                        Age = animal.Age,
+                        Description = animal.Description,
+                        Date = animal.Date
 
-                };
+                    };
 
-                return View(entryModel);
+                    return View(entryModel);
+                }
             }
 
             return new HttpNotFoundResult();
@@ -80,40 +75,44 @@ namespace TinyShelterPage.Controllers
         [HttpPost]
         public ActionResult AddAnimal(EntryModel entryModel)
         {
-            var nextAnimalId = Pet.Max(p => p.AnimalId) + 1;
+            using (var tinyShelterPageContext = new TinyShelterPageContext())
+            { 
 
-            var animal = new Animal
-            {
-                AnimalId = nextAnimalId,
-                Name = entryModel.Name,
-                Type = entryModel.Type,
-                Age = entryModel.Age,
-                Description = entryModel.Description,
-                Date = entryModel.Date
-            };
+                var animal = new Animal
+                {
+                    Name = entryModel.Name,
+                    Type = entryModel.Type,
+                    Age = entryModel.Age,
+                    Description = entryModel.Description,
+                    Date = entryModel.Date
+                };
 
-            Pet.Add(animal);
-
+                tinyShelterPageContext.Pet.Add(animal);
+                tinyShelterPageContext.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 
 
         public ActionResult AnimalEdit(int id)
         {
-            var animal = Pet.SingleOrDefault(p => p.AnimalId == id);
-            if (animal != null)
+            using (var tinyShelterPageContext = new TinyShelterPageContext())
             {
-                var entryModel = new EntryModel
+                var animal = tinyShelterPageContext.Pet.SingleOrDefault(p => p.AnimalId == id);
+                if (animal != null)
                 {
-                    AnimalId = animal.AnimalId,
-                    Name = animal.Name,
-                    Type = animal.Type,
-                    Age = animal.Age,
-                    Description = animal.Description,
-                    Date = animal.Date
-                };
+                    var entryModel = new EntryModel
+                    {
+                        AnimalId = animal.AnimalId,
+                        Name = animal.Name,
+                        Type = animal.Type,
+                        Age = animal.Age,
+                        Description = animal.Description,
+                        Date = animal.Date
+                    };
 
-                return View("AddEditAnimal", entryModel);
+                    return View("AddEditAnimal", entryModel);
+                }
             }
 
             return new HttpNotFoundResult();
@@ -123,33 +122,42 @@ namespace TinyShelterPage.Controllers
         [HttpPost]
         public ActionResult EditAnimal(EntryModel entryModel)
         {
-            var animal = Pet.SingleOrDefault(p => p.AnimalId == entryModel.AnimalId);
-
-            if (animal != null)
+            using (var tinyShelterPageContext = new TinyShelterPageContext())
             {
-                animal.Name = entryModel.Name;
-                animal.Type = entryModel.Type;
-                animal.Age = entryModel.Age;
-                animal.Description = entryModel.Description;
-                animal.Date = entryModel.Date;
+                var animal = tinyShelterPageContext.Pet.SingleOrDefault(p => p.AnimalId == entryModel.AnimalId);
 
-                return RedirectToAction("Index");
+                if (animal != null)
+                {
+                    animal.Name = entryModel.Name;
+                    animal.Type = entryModel.Type;
+                    animal.Age = entryModel.Age;
+                    animal.Description = entryModel.Description;
+                    animal.Date = entryModel.Date;
+                    tinyShelterPageContext.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
             }
 
-            return new HttpNotFoundResult();
+         return new HttpNotFoundResult();
+            
         }
 
 
         [HttpPost]
         public ActionResult DeleteAnimal(EntryModel entryModel)
         {
-            var animal = Pet.SingleOrDefault(p => p.AnimalId == entryModel.AnimalId);
-
-            if (animal != null)
+            using (var tinyShelterPageContext = new TinyShelterPageContext())
             {
-                Pet.Remove(animal);
+                var animal = tinyShelterPageContext.Pet.SingleOrDefault(p => p.AnimalId == entryModel.AnimalId);
 
-                return RedirectToAction("Index");
+                if (animal != null)
+                {
+                    tinyShelterPageContext.Pet.Remove(animal);
+                    tinyShelterPageContext.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
             }
 
             return new HttpNotFoundResult();
