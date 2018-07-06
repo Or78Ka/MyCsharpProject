@@ -120,6 +120,24 @@ namespace TinyShelterPage.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult EditAnimal(EntryModel entryModel)
+        {
+            var animal = Pet.SingleOrDefault(p => p.AnimalId == entryModel.AnimalId);
+
+            if (animal != null)
+            {
+                animal.Name = entryModel.Name;
+                animal.Type = entryModel.Type;
+                animal.Age = entryModel.Age;
+                animal.Description = entryModel.Description;
+                animal.Date = entryModel.Date;
+
+                return RedirectToAction("Index");
+            }
+
+            return new HttpNotFoundResult();
+        }
 
 
         //public ActionResult Edit(int? id)
