@@ -140,24 +140,26 @@ namespace TinyShelterPage.Controllers
         }
 
 
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        [HttpPost]
+        public ActionResult DeleteAnimal(EntryModel entryModel)
+        {
+            var animal = Pet.SingleOrDefault(p => p.AnimalId == entryModel.AnimalId);
 
-        //    }
-        //    return View();
-        //}
+            if (animal != null)
+            {
+                Pet.Remove(animal);
 
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
+            }
 
-        //    }
-        //    return View();
-        //}
+            return new HttpNotFoundResult();
+        }
+
+
+
+
+
+
+        
     }
 }

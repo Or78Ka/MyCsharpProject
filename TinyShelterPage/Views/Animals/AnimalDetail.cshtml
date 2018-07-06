@@ -24,7 +24,36 @@
         <br />@Html.DisplayFor(m => m.Date)
     </div>
     <div class="col-sm-12">
-        @Html.ActionLink("Done", "Index", null, new { @class = "btn btn-primary" })
-        @Html.ActionLink("Edit", "AnimalEdit", new { id = Model.AnimalId })
+        @Html.ActionLink("Edit", "AnimalEdit", new { id = Model.AnimalId }, new { @class = "btn btn-primary" })
+
+        <a data-toggle="modal" href="@("#deleteAnimalModal")">Delete</a>
+        <div class="modal fade" id="@("deleteAnimalModal")" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    @using (Html.BeginForm("DeleteAnimal", "Animals"))
+                    {
+                        <input type="hidden" value="@Model.AnimalId" name="AnimalId" />
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Delete @Model.Name</h4>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete @Model.Name?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        @Html.ActionLink("Done", "Index", null, new { @class = "btn btn-secondary" })
+
     </div>
 </div>
