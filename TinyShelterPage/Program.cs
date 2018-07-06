@@ -10,7 +10,7 @@ namespace TinyShelterPage
     {
         static void Main(string[] args)
         {
-            using (var context = new Context())
+            using (var context = new AnimalsToAdoptContext())
             {
                 context.Entries.Add(new EntryModel()
                 {
