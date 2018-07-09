@@ -37,6 +37,8 @@ namespace TinyShelterPage.Controllers
             }
         }
 
+        // get animal profile detail
+
         public ActionResult AnimalDetail(int id)
         {
             using (var tinyShelterPageContext = new TinyShelterPageContext())
@@ -62,7 +64,7 @@ namespace TinyShelterPage.Controllers
             return new HttpNotFoundResult();
         }
 
-
+        
 
         public ActionResult AnimalAdd()
         {
@@ -71,6 +73,7 @@ namespace TinyShelterPage.Controllers
             return View("AddEditAnimal", entryModel);
         }
 
+        // add animal post action method, saves new entry to database
 
         [HttpPost]
         public ActionResult AddAnimal(EntryModel entryModel)
@@ -133,6 +136,7 @@ namespace TinyShelterPage.Controllers
             return new HttpNotFoundResult();
         }
 
+        // edit animal post action method, saves updated entry to database
 
         [HttpPost]
         public ActionResult EditAnimal(EntryModel entryModel)
@@ -170,6 +174,7 @@ namespace TinyShelterPage.Controllers
             
         }
 
+        // delete animal post action method, deletes entry from database
 
         [HttpPost]
         public ActionResult DeleteAnimal(EntryModel entryModel)

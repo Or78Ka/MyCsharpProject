@@ -6,6 +6,8 @@ using System.Web;
 
 namespace TinyShelterPage.Models
 {
+    // create animal class
+
     public class Animal
     {
         public int AnimalId { get; set; }
