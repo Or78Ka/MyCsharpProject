@@ -4,33 +4,32 @@
     ViewBag.Title = "Animals";
 }
 
-<h2>Animals</h2>
+<h2>Pets waiting to be Adopted</h2>
 
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th>Pets waiting to be Adopted</th>
-        </tr>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Age</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (var i = 0; i < Model.Pet.Count; i++)
-        {
+<    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
 
             <tr>
-                <td>@Model.Pet[i].Name</td>
-                <td>@Model.Pet[i].Type</td>
-                <td>@Model.Pet[i].Age</td>
-                <td>@Html.ActionLink("Detail", "AnimalDetail", new { id = Model.Pet[i].AnimalId })</td>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Age</th>
+            </tr>
+        </thead>
+        <tbody>
+    @for (var i = 0; i < Model.Pet.Count; i++)
+    {
+
+
+        <tr>
+                <td class=".d-block">@Model.Pet[i].Name</td>
+                <td class=".d-none .d-sm-block">@Model.Pet[i].Type</td>
+                <td class=".d-none .d-lg-block">@Model.Pet[i].Age</td>
+                <td>@Html.ActionLink("Detail", "AnimalDetail", new { id = Model.Pet[i].AnimalId, @class="detail-button" })</td>
             </tr>
 
-        }
+    }
     </tbody>
-</table>
+    </table>
 
 		 
         <div class="col-sm-12 form-group">

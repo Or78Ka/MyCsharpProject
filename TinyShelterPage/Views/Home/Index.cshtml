@@ -3,9 +3,23 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-<div>
-    pictureBox.Image = 
+<h2>Tiny Shelter</h2>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-xs-12 col-sm-4 image1">
+            <img src="~/Images/Dog1.jpg" alt="Dog">
+
+
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            @Html.ActionLink("Click here to see all pets available for adoption", "Index", "Animals", new { @class = "clickable" })
+        
+        </div>
+        <div class="col-xs-12 col-sm-4 image1">
+            <img src="~/Images/Cat5.jpg" alt="Cat">
+            
+        </div>
+    </div>
 
 </div>
 

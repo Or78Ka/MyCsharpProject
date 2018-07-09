@@ -87,6 +87,21 @@ namespace TinyShelterPage.Controllers
                     Date = entryModel.Date
                 };
 
+                if (ModelState.IsValidField("Age") && entryModel.Age <= 0 || entryModel.Age > 20)
+                {
+                    ModelState.AddModelError("Age", "The Age has to be between 0 - 20 years.");
+                }
+
+                if (ModelState.IsValidField("Date") && entryModel.Date > DateTime.Today)
+                {
+                    ModelState.AddModelError("Date", "The Date has to today or earlier");
+                }
+
+                if (ModelState.IsValidField("Date") && entryModel.Date > DateTime.Today)
+                {
+                    ModelState.AddModelError("Date", "The Date has to today or earlier");
+                }
+
                 tinyShelterPageContext.Pet.Add(animal);
                 tinyShelterPageContext.SaveChanges();
             }
@@ -133,6 +148,18 @@ namespace TinyShelterPage.Controllers
                     animal.Age = entryModel.Age;
                     animal.Description = entryModel.Description;
                     animal.Date = entryModel.Date;
+
+                    if(ModelState.IsValidField("Age") && entryModel.Age <= 0 || entryModel.Age > 20 )
+                        {
+                            ModelState.AddModelError ("Age","The Age has to be between 0 - 20 years.");
+                        }
+
+                    if (ModelState.IsValidField("Date") && entryModel.Date > DateTime.Today)
+                    {
+                        ModelState.AddModelError("Date", "The Date has to today or earlier");
+                    }
+
+
                     tinyShelterPageContext.SaveChanges();
 
                     return RedirectToAction("Index");
